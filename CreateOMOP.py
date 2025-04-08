@@ -10,9 +10,9 @@ class Main:
     def do_data():
 
         number_of_patients: int = 10
-        obs_per_patient: int = 5;
-        meas_per_patient: int = 5;
-        clin_per_patient: int = 5;
+        obs_per_patient: int = 5
+        meas_per_patient: int = 5
+        clin_per_patient: int = 5
 
 
         # Initialize the values from the original Java code
