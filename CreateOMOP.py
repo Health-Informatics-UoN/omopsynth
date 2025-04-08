@@ -60,18 +60,18 @@ class Main:
                 ethnicity_select = random.randint(0, len(ethnicity) - 1)
                 race_select = random.randint(0, len(race) - 1)
 
-                year_to_use = random.randint(1920, 2020)
+                year_of_birth = random.randint(1920, 2020)
                 month_to_use = random.randint(1, 12)
                 day_to_use = random.randint(1, 28)
 
-                person.append(f"{pat_id},{genders[gender_select]},{year_to_use},{month_to_use},{day_to_use},{year_to_use}-{month_to_use}-{day_to_use},{race[race_select]},{ethnicity[ethnicity_select]},,,,,,,,,,")
+                person.append(f"{pat_id},{genders[gender_select]},{year_of_birth},{month_to_use},{day_to_use},{year_of_birth}-{month_to_use}-{day_to_use},{race[race_select]},{ethnicity[ethnicity_select]},,,,,,,,,,")
 
                 # Generate observation data
                 for _ in range(obs_per_patient):
                     ob_select = random.randint(0, len(ob_concepts) - 1)
                     ob_type_select = random.randint(0, len(ob_types) - 1)
 
-                    ob_year = random.randint(year_to_use, 2023)
+                    ob_year = random.randint(year_of_birth, 2023)
                     ob_month = random.randint(1, 12)
                     ob_day = random.randint(1, 28)
 
@@ -87,7 +87,7 @@ class Main:
                     ob_type_select = random.randint(0, len(ob_types) - 1)
                     meas_value = random.randint(0, 100)
 
-                    ob_year = random.randint(year_to_use, 2023)
+                    ob_year = random.randint(year_of_birth, 2023)
                     ob_month = random.randint(1, 12)
                     ob_day = random.randint(1, 28)
 
@@ -102,7 +102,7 @@ class Main:
                     clin_select = random.randint(0, len(clin_concepts) - 1)
                     clin_type_select = random.randint(0, len(ob_types) - 1)
 
-                    ob_year = random.randint(year_to_use, 2023)
+                    ob_year = random.randint(year_of_birth, 2023)
                     ob_month = random.randint(1, 12)
                     ob_day = random.randint(1, 28)
 
