@@ -56,45 +56,45 @@ class Main:
 
             for pat_id in range(1, number_of_patients):
                 # Generate person data
-                gender_select = random.randint(0, len(genders) - 1)
-                ethnicity_select = random.randint(0, len(ethnicity) - 1)
-                race_select = random.randint(0, len(race) - 1)
+                gender_select: int = random.randint(0, len(genders) - 1)
+                ethnicity_select: int = random.randint(0, len(ethnicity) - 1)
+                race_select: int  = random.randint(0, len(race) - 1)
 
-                year_of_birth = random.randint(1920, 2020)
-                month_to_use = random.randint(1, 12)
-                day_to_use = random.randint(1, 28)
+                year_of_birth:int  = random.randint(1920, 2020)
+                month_to_use:int  = random.randint(1, 12)
+                day_to_use:int  = random.randint(1, 28)
 
                 person.append(f"{pat_id},{genders[gender_select]},{year_of_birth},{month_to_use},{day_to_use},{year_of_birth}-{month_to_use}-{day_to_use},{race[race_select]},{ethnicity[ethnicity_select]},,,,,,,,,,")
 
                 # Generate observation data
                 for _ in range(obs_per_patient):
-                    ob_select = random.randint(0, len(ob_concepts) - 1)
-                    ob_type_select = random.randint(0, len(ob_types) - 1)
+                    ob_select:int = random.randint(0, len(ob_concepts) - 1)
+                    ob_type_select:int  = random.randint(0, len(ob_types) - 1)
 
-                    ob_year = random.randint(year_of_birth, 2023)
-                    ob_month = random.randint(1, 12)
-                    ob_day = random.randint(1, 28)
+                    ob_year:int = random.randint(year_of_birth, 2023)
+                    ob_month:int = random.randint(1, 12)
+                    ob_day:int  = random.randint(1, 28)
 
-                    month = f"0{ob_month}" if ob_month < 10 else str(ob_month)
-                    day = f"0{ob_day}" if ob_day < 10 else str(ob_day)
+                    month:str = f"0{ob_month}" if ob_month < 10 else str(ob_month)
+                    day:str = f"0{ob_day}" if ob_day < 10 else str(ob_day)
 
                     obs.append(f"{ob_id},{pat_id},{ob_concepts[ob_select]},{ob_year}-{month}-{day},,{ob_types[ob_type_select]},,,,,,,,,,,,,,,")
                     ob_id += 1
 
                 # Generate measurement data
                 for _ in range(meas_per_patient):
-                    meas_select = random.randint(0, len(meas_concepts) - 1)
-                    ob_type_select = random.randint(0, len(ob_types) - 1)
-                    meas_value = random.randint(0, 100)
+                    meas_select:int = random.randint(0, len(meas_concepts) - 1)
+                    ob_type_select:int = random.randint(0, len(ob_types) - 1)
+                    meas_value:int = random.randint(0, 100)
 
-                    ob_year = random.randint(year_of_birth, 2023)
-                    ob_month = random.randint(1, 12)
-                    ob_day = random.randint(1, 28)
+                    meas_year:int = random.randint(year_of_birth, 2023)
+                    meas_month:int = random.randint(1, 12)
+                    meas_day:int = random.randint(1, 28)
 
-                    month = f"0{ob_month}" if ob_month < 10 else str(ob_month)
-                    day = f"0{ob_day}" if ob_day < 10 else str(ob_day)
+                    month = f"0{meas_month}" if meas_month < 10 else str(meas_month)
+                    day = f"0{meas_day}" if meas_day < 10 else str(meas_day)
 
-                    meas.append(f"{meas_id},{pat_id},{meas_concepts[meas_select]},{ob_year}-{month}-{day},,,{ob_types[ob_type_select]},,{meas_value},,,,,,,,,,,,,,")
+                    meas.append(f"{meas_id},{pat_id},{meas_concepts[meas_select]},{meas_year}-{month}-{day},,,{ob_types[ob_type_select]},,{meas_value},,,,,,,,,,,,,,")
                     meas_id += 1
 
                 # Generate clinical data
@@ -102,14 +102,14 @@ class Main:
                     clin_select = random.randint(0, len(clin_concepts) - 1)
                     clin_type_select = random.randint(0, len(ob_types) - 1)
 
-                    ob_year = random.randint(year_of_birth, 2023)
-                    ob_month = random.randint(1, 12)
-                    ob_day = random.randint(1, 28)
+                    clin_year:int = random.randint(year_of_birth, 2023)
+                    clin_month:int = random.randint(1, 12)
+                    clin_day:int = random.randint(1, 28)
 
-                    month = f"0{ob_month}" if ob_month < 10 else str(ob_month)
-                    day = f"0{ob_day}" if ob_day < 10 else str(ob_day)
+                    month:str = f"0{clin_month}" if clin_month < 10 else str(clin_month)
+                    day:str = f"0{clin_day}" if clin_day < 10 else str(clin_day)
 
-                    clins.append(f"{clin_id},{pat_id},{clin_concepts[clin_select]},{ob_year}-{month}-{day},,{ob_year}-{month}-{day},,{ob_types[clin_type_select]},,,,,,,,")
+                    clins.append(f"{clin_id},{pat_id},{clin_concepts[clin_select]},{clin_year}-{month}-{day},,{ob_year}-{month}-{day},,{ob_types[clin_type_select]},,,,,,,,")
                     clin_id += 1
 
                 if count_total == 50000:
