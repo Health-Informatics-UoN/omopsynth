@@ -9,10 +9,12 @@ class Main:
     @staticmethod
     def do_data():
 
-        number_of_patients: int = 10
+        number_of_patients: int = 100
         obs_per_patient: int = 5
         meas_per_patient: int = 5
         clin_per_patient: int = 5
+        drug_per_patient: int = 5
+        spec_per_patient: int = 5
 
 
         # Initialize the values from the original Java code
@@ -38,21 +40,33 @@ class Main:
         ethnicity_values = "38003563,38003564"
         ethnicity = ethnicity_values.split(",")
 
+        drug_values = "1116072,41197704,40709093,42941698,43762714,43698250,43835980,21086674,41407140,40715368,42953893,44170768,36922065,844743,41168948,44100389,41167082,35754398,21025947,43518246,41196685,43023173,19125043,41055787,40968957,40847101,43783646,41107666,43284870,43691009,43139824,21114218,36267219,41178983,41395885,43826994,44174723,43286859,21134424,21093170,747481,40971183,43852909,41096613,44170539,36852739,36056202,21042512,2032106,43175305,41304956,40968067,2918507,43748109,35129893,35137456,41184102,40954088,41332482,41090882,40995661,41416211,41442297,42727237,40968906,41049079,2044422,40853107,41026683,21050803,41175599,43775313,2936497,43749954,21143516,42969636,19106683,43194850,40014748,21101386,44195231,903903,36863786,41041767,43722693,41202050,40866276,41076488,41306448,44176626,41495980,43256943,43812446,40914920,42936288,43627004,36058008,2022715,43214333,40909716";
+        drugCodes = drug_values.split(",")
+
+        spec_values = "4043431,4206436,4162500,43021140,4206413,40481562,44792555,4164007,40491350,4048506,4048982,608822,4188549";
+        specimenCodes = spec_values.split(",")
+
         person = []
         obs = []
         clins = []
         meas = []
+        drugs = []
+        specs = []
 
         count_total:int = 0
         ob_id:int = 1
         clin_id:int = 1
         meas_id:int = 1
+        drug_id:int = 1
+        spec_id:int = 1
 
         # Open all files at once using with statement
         with open("observation.csv", "w") as obs_writer, \
              open("person.csv", "w") as person_writer, \
              open("clinical.csv", "w") as clin_writer, \
-             open("measurement.csv", "w") as meas_writer:
+             open("measurement.csv", "w") as meas_writer, \
+             open("drugs.csv", "w") as drug_writer, \
+             open("specimens.csv", "w") as spec_writer:
 
             for pat_id in range(1, number_of_patients):
                 # Generate person data
@@ -109,8 +123,34 @@ class Main:
                     month:str = f"0{clin_month}" if clin_month < 10 else str(clin_month)
                     day:str = f"0{clin_day}" if clin_day < 10 else str(clin_day)
 
-                    clins.append(f"{clin_id},{pat_id},{clin_concepts[clin_select]},{clin_year}-{month}-{day},,{ob_year}-{month}-{day},,{ob_types[clin_type_select]},,,,,,,,")
+                    clins.append(f"{clin_id},{pat_id},{clin_concepts[clin_select]},{clin_year}-{month}-{day},,{clin_year}-{month}-{day},,{ob_types[clin_type_select]},,,,,,,,")
                     clin_id += 1
+
+                for _ in range(drug_per_patient):
+                    drug_select = random.randint(0, len(drugCodes) - 1)
+
+                    drug_year:int = random.randint(year_of_birth, 2023)
+                    drug_month:int = random.randint(1, 12)
+                    drug_day:int = random.randint(1, 28)
+
+                    month:str = f"0{drug_month}" if drug_month < 10 else str(drug_month)
+                    day:str = f"0{drug_day}" if drug_day < 10 else str(drug_day)
+
+                    drugs.append(f"{drug_id},{pat_id},{drugCodes[drug_select]},{drug_year}-{month}-{day},,{drug_year}-{month}-{day},,,{ob_types[clin_type_select]},,,,,,,,,,,,,,")
+                    drug_id += 1
+
+                for _ in range(spec_per_patient):
+                    spec_select = random.randint(0, len(specimenCodes) - 1)
+
+                    spec_year:int = random.randint(year_of_birth, 2023)
+                    spec_month:int = random.randint(1, 12)
+                    spec_day:int = random.randint(1, 28)
+
+                    month:str = f"0{spec_month}" if spec_month < 10 else str(spec_month)
+                    day:str = f"0{spec_day}" if spec_day < 10 else str(spec_day)
+
+                    specs.append(f"{spec_id},{pat_id},{specimenCodes[spec_select]},{ob_types[clin_type_select]},{spec_year}-{month}-{day},,,,,,,,,,")
+                    spec_id += 1
 
                 if count_total == 50000:
                     for s in obs:
@@ -135,7 +175,10 @@ class Main:
                 obs_writer.write(s + "\n")
             for s in meas:
                 meas_writer.write(s + "\n")
-
+            for s in drugs:
+                drug_writer.write(s + "\n")
+            for s in specs:
+                 spec_writer.write(s + "\n")
     @staticmethod
     def main():
         try:
